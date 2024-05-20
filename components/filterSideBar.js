@@ -52,10 +52,6 @@ const filters = [
   },
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function FilterSideBar({ categories, products }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
@@ -261,9 +257,35 @@ export default function FilterSideBar({ categories, products }) {
                           href={
                             pathname +
                             "?" +
+                            createQueryString(
+                              "_sort",
+                              "uploadDate",
+                              "_order",
+                              "desc"
+                            )
+                          }
+                          className={`${
+                            searchParams.get("_sort") === "uploadDate"
+                              ? "text-gray-800 font-medium"
+                              : "text-gray-500"
+                          } block px-4 py-2 text-sm`}
+                        >
+                          En son eklenenler
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item>
+                        <Link
+                          href={
+                            pathname +
+                            "?" +
                             createQueryString("_sort", "name", "_order", "desc")
                           }
-                          className="text-gray-500 block px-4 py-2 text-sm"
+                          className={`${
+                            searchParams.get("_sort") === "name" &&
+                            searchParams.has("_order") == false
+                              ? "text-gray-800 font-medium"
+                              : "text-gray-500"
+                          } block px-4 py-2 text-sm`}
                         >
                           Ürün Adı: A - Z
                         </Link>
@@ -280,7 +302,12 @@ export default function FilterSideBar({ categories, products }) {
                               "desc"
                             )
                           }
-                          className="text-gray-500 block px-4 py-2 text-sm"
+                          className={`${
+                            searchParams.get("_sort") === "name" &&
+                            searchParams.has("_order") == true
+                              ? "text-gray-800 font-medium"
+                              : "text-gray-500"
+                          } block px-4 py-2 text-sm`}
                         >
                           Ürün Adı: Z - A
                         </Link>
@@ -297,7 +324,12 @@ export default function FilterSideBar({ categories, products }) {
                               "desc"
                             )
                           }
-                          className="text-gray-500 block px-4 py-2 text-sm"
+                          className={`${
+                            searchParams.get("_sort") === "price" &&
+                            searchParams.has("_order") == false
+                              ? "text-gray-800 font-medium"
+                              : "text-gray-500"
+                          } block px-4 py-2 text-sm`}
                         >
                           En düşük fiyat
                         </Link>
@@ -314,7 +346,12 @@ export default function FilterSideBar({ categories, products }) {
                               "desc"
                             )
                           }
-                          className="text-gray-500 block px-4 py-2 text-sm"
+                          className={`${
+                            searchParams.get("_sort") === "price" &&
+                            searchParams.has("_order") == true
+                              ? "text-gray-800 font-medium"
+                              : "text-gray-500"
+                          } block px-4 py-2 text-sm`}
                         >
                           En yüksek fiyat
                         </Link>

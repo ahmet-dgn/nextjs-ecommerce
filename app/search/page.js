@@ -18,8 +18,6 @@ export default async function Search({ searchParams }) {
     <FilterSideBar
       categories={categoriesData}
       products={productsData}
-      queryStrings={queryParams}
-      searchParams={searchParams}
     />
   );
 }
