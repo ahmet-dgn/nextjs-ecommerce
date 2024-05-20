@@ -1,10 +1,25 @@
 import getData from "@/lib/query";
 import FilterSideBar from "@/components/filterSideBar";
+
 export default async function Search({ searchParams }) {
-  const categoriesFilter = searchParams.categoryIDs;
-  const categoriesData = await getData("categories");
+  const queryParams = Object.keys(searchParams)
+    .map(
+      (key) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(searchParams[key])}`
+    )
+    .join("&");
+
   const productsData = await getData(
-    `products${categoriesFilter ? "?categoryIDs=" + categoriesFilter : ""}`
+    `products${queryParams ? "?" + queryParams : ""}`
   );
-  return <FilterSideBar categories={categoriesData} products={productsData} />;
+
+  const categoriesData = await getData("categories");
+  return (
+    <FilterSideBar
+      categories={categoriesData}
+      products={productsData}
+      queryStrings={queryParams}
+      searchParams={searchParams}
+    />
+  );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useCallback } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import ProductCard from "./productCard";
@@ -10,13 +10,19 @@ import {
   MinusIcon,
   PlusIcon,
 } from "@heroicons/react/20/solid";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const sortOptions = [
-  { name: "Ürün Adı: A - Z", href: "#", current: false },
-  { name: "Ürün Adı: Z - A", href: "#", current: false },
-  { name: "En yeniler", href: "#", current: true },
-  { name: "En düşük fiyat", href: "#", current: false },
-  { name: "En yüksek fiyat", href: "#", current: false },
+  { name: "En yeniler", _sort: "uploadDate", key: "uploadDate" },
+  { name: "Ürün Adı: A - Z", _sort: "name", key: "name" },
+  { name: "Ürün Adı: Z - A", _sort: "name", _order: "desc", key: "namedesc" },
+  { name: "En düşük fiyat", _sort: "price", current: "price" },
+  {
+    name: "En yüksek fiyat",
+    _sort: "price",
+    _order: "desc",
+    current: "pricedesc",
+  },
 ];
 
 const filters = [
@@ -38,10 +44,10 @@ const filters = [
     name: "Beden",
     options: [
       { value: "s", label: "S", checked: false },
-      { value: "m", label: "6L", checked: false },
-      { value: "l", label: "12L", checked: false },
-      { value: "x", label: "18L", checked: false },
-      { value: "xl", label: "20L", checked: false },
+      { value: "m", label: "M", checked: false },
+      { value: "l", label: "L", checked: false },
+      { value: "xl", label: "XL", checked: false },
+      { value: "2xl", label: "2XL", checked: false },
     ],
   },
 ];
@@ -52,6 +58,33 @@ function classNames(...classes) {
 
 export default function FilterSideBar({ categories, products }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const createQueryString = useCallback(
+    (name, value, deleteName, deleteNameValue) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+      {
+        deleteName && deleteNameValue
+          ? params.delete(deleteName, deleteNameValue)
+          : "";
+      }
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const createQueryStringDesc = useCallback(
+    (name, value, name2, value2) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+      params.set(name2, value2);
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   return (
     <div className="bg-white">
@@ -223,24 +256,69 @@ export default function FilterSideBar({ categories, products }) {
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
-                      {sortOptions.map((option) => (
-                        <Menu.Item key={option.name}>
-                          {({ active }) => (
-                            <a
-                              href={option.href}
-                              className={classNames(
-                                option.current
-                                  ? "font-medium text-gray-900"
-                                  : "text-gray-500",
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm"
-                              )}
-                            >
-                              {option.name}
-                            </a>
-                          )}
-                        </Menu.Item>
-                      ))}
+                      <Menu.Item>
+                        <Link
+                          href={
+                            pathname +
+                            "?" +
+                            createQueryString("_sort", "name", "_order", "desc")
+                          }
+                          className="text-gray-500 block px-4 py-2 text-sm"
+                        >
+                          Ürün Adı: A - Z
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item>
+                        <Link
+                          href={
+                            pathname +
+                            "?" +
+                            createQueryStringDesc(
+                              "_sort",
+                              "name",
+                              "_order",
+                              "desc"
+                            )
+                          }
+                          className="text-gray-500 block px-4 py-2 text-sm"
+                        >
+                          Ürün Adı: Z - A
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item>
+                        <Link
+                          href={
+                            pathname +
+                            "?" +
+                            createQueryString(
+                              "_sort",
+                              "price",
+                              "_order",
+                              "desc"
+                            )
+                          }
+                          className="text-gray-500 block px-4 py-2 text-sm"
+                        >
+                          En düşük fiyat
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item>
+                        <Link
+                          href={
+                            pathname +
+                            "?" +
+                            createQueryStringDesc(
+                              "_sort",
+                              "price",
+                              "_order",
+                              "desc"
+                            )
+                          }
+                          className="text-gray-500 block px-4 py-2 text-sm"
+                        >
+                          En yüksek fiyat
+                        </Link>
+                      </Menu.Item>
                     </div>
                   </Menu.Items>
                 </Transition>
