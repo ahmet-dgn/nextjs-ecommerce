@@ -12,42 +12,48 @@ import {
 } from "@heroicons/react/20/solid";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const sortOptions = [
-  { name: "En yeniler", _sort: "uploadDate", key: "uploadDate" },
-  { name: "Ürün Adı: A - Z", _sort: "name", key: "name" },
-  { name: "Ürün Adı: Z - A", _sort: "name", _order: "desc", key: "namedesc" },
-  { name: "En düşük fiyat", _sort: "price", current: "price" },
-  {
-    name: "En yüksek fiyat",
-    _sort: "price",
-    _order: "desc",
-    current: "pricedesc",
-  },
-];
-
 const filters = [
   {
     id: "color",
     name: "Renk",
     options: [
-      { value: "white", label: "Beyaz", checked: false },
-      { value: "beige", label: "Siyah", checked: false },
-      { value: "blue", label: "Mavi", checked: true },
-      { value: "brown", label: "Kahverengi", checked: false },
-      { value: "green", label: "Yeşil", checked: false },
-      { value: "purple", label: "Pembe", checked: false },
+      { value: "beyaz", label: "Beyaz", query: "features.color" },
+      { value: "siyah", label: "Siyah", query: "features.color" },
+      { value: "mavi", label: "Mavi", query: "features.color" },
+      { value: "yesil", label: "Yeşil", query: "features.color" },
+      { value: "toz-pembe", label: "Toz Pembe", query: "features.color" },
+      { value: "rose-gold", label: "Rose Gold", query: "features.color" },
     ],
   },
-
   {
     id: "size",
     name: "Beden",
     options: [
-      { value: "s", label: "S", checked: false },
-      { value: "m", label: "M", checked: false },
-      { value: "l", label: "L", checked: false },
-      { value: "xl", label: "XL", checked: false },
-      { value: "2xl", label: "2XL", checked: false },
+      { value: "s", label: "S", query: "sizes.small" },
+      { value: "m", label: "M", query: "sizes.medium" },
+      { value: "l", label: "L", query: "sizes.large" },
+      { value: "xl", label: "XL", query: "sizes.xlarge" },
+    ],
+  },
+  {
+    id: "material",
+    name: "Materyal",
+    options: [
+      { value: "pamuk", label: "Pamuk", query: "features.material" },
+      { value: "keten", label: "Keten", query: "features.material" },
+      { value: "kece", label: "Keçe", query: "features.material" },
+      { value: "kadife", label: "Kadife", query: "features.material" },
+      { value: "altin", label: "Altın", query: "features.material" },
+      { value: "aluminyum", label: "Alüminyum", query: "features.material" },
+    ],
+  },
+  {
+    id: "fit",
+    name: "Kalıp",
+    options: [
+      { value: "normal", label: "Normal", query: "features.fit" },
+      { value: "genis", label: "Geniş", query: "features.material" },
+      { value: "dar", label: "Dar", query: "features.material" },
     ],
   },
 ];
@@ -58,6 +64,8 @@ export default function FilterSideBar({ categories, products }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+
   const createQueryString = useCallback(
     (name, value, deleteName, deleteNameValue) => {
       const params = new URLSearchParams(searchParams);
@@ -77,6 +85,19 @@ export default function FilterSideBar({ categories, products }) {
       const params = new URLSearchParams(searchParams);
       params.set(name, value);
       params.set(name2, value2);
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const createQueryString2 = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      const deleteQuery = params.has(name, value);
+      if (deleteQuery === true) {
+        params.delete(name, value);
+      } else params.append(name, value);
+
       return params.toString();
     },
     [searchParams]
@@ -437,8 +458,21 @@ export default function FilterSideBar({ categories, products }) {
                                   name={`${section.id}[]`}
                                   defaultValue={option.value}
                                   type="checkbox"
-                                  defaultChecked={option.checked}
+                                  checked={params.has(
+                                    option.query,
+                                    option.value
+                                  )}
                                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                  onChange={() => {
+                                    router.push(
+                                      pathname +
+                                        "?" +
+                                        createQueryString2(
+                                          option.query,
+                                          option.value
+                                        )
+                                    );
+                                  }}
                                 />
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}
