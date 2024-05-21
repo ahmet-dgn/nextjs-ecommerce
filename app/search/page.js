@@ -13,6 +13,7 @@ export default async function Search({ searchParams }) {
       return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
     })
     .join("&");
+
   const productsData = await getData(
     `products${queryParams ? "?" + queryParams : ""}`
   );

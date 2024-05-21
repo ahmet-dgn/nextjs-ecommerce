@@ -216,16 +216,29 @@ export default function FilterSideBar({ categories, products }) {
                                     className="flex items-center"
                                   >
                                     <input
-                                      id={`filter-mobile-${section.id}-${optionIdx}`}
+                                      id={`filter-${section.id}-${optionIdx}`}
                                       name={`${section.id}[]`}
                                       defaultValue={option.value}
                                       type="checkbox"
-                                      defaultChecked={option.checked}
+                                      checked={params.has(
+                                        option.query,
+                                        option.value
+                                      )}
                                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                      onChange={() => {
+                                        router.push(
+                                          pathname +
+                                            "?" +
+                                            createQueryString2(
+                                              option.query,
+                                              option.value
+                                            )
+                                        );
+                                      }}
                                     />
                                     <label
-                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                      className="ml-3 min-w-0 flex-1 text-gray-500"
+                                      htmlFor={`filter-${section.id}-${optionIdx}`}
+                                      className="ml-3 text-sm text-gray-600"
                                     >
                                       {option.label}
                                     </label>
