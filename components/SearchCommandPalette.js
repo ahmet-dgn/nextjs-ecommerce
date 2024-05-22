@@ -2,6 +2,8 @@
 import { Fragment, useState, useEffect } from "react";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 import {
   ExclamationCircleIcon,
   PencilSquareIcon,
@@ -26,10 +28,13 @@ function classNames(...classes) {
 export default function SearchCommandPalette({
   searchDialog,
   changeDialogStatus,
+  products,
 }) {
-  const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
 
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const query = searchParams.get("q");
   useEffect(() => {
     if (searchDialog) {
       setOpen(true);
@@ -40,20 +45,21 @@ export default function SearchCommandPalette({
     changeDialogStatus(false);
   }
 
-  const filteredItems =
-    query === ""
-      ? []
-      : items.filter((item) => {
-          return item.name.toLowerCase().includes(query.toLowerCase());
-        });
+  const handleSearch = useDebouncedCallback((term) => {
+    setOpen(false);
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set("q", term);
+      params.delete("categoryIDs");
+    } else {
+      params.delete("q");
+    }
+
+    router.replace(`search?${params.toString()}`);
+  }, 300);
 
   return (
-    <Transition.Root
-      show={open}
-      as={Fragment}
-      afterLeave={() => setQuery("")}
-      appear
-    >
+    <Transition.Root show={open} as={Fragment} appear>
       <Dialog className="relative z-10" open={open} onClose={setOpen}>
         <Transition.Child
           as={Fragment}
@@ -64,10 +70,10 @@ export default function SearchCommandPalette({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto p-4 sm:p-6 md:p-20">
+        <div className="fixed inset-0 z-10 w-screen overflow-y-auto px-4 py-20  md:p-20">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -78,7 +84,7 @@ export default function SearchCommandPalette({
             leaveTo="opacity-0 scale-95"
           >
             <Dialog.Panel className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
-              <Combobox onChange={(item) => (window.location = item.url)}>
+              <Combobox>
                 <div className="relative">
                   <MagnifyingGlassIcon
                     className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-400"
@@ -87,20 +93,21 @@ export default function SearchCommandPalette({
                   <Combobox.Input
                     className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
                     placeholder="Ürün Ara..."
-                    onChange={(event) => setQuery(event.target.value)}
-                    onBlur={() => setQuery("")}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") handleSearch(e.target.value);
+                    }}
                   />
                 </div>
 
-                {filteredItems.length > 0 && (
+                {products?.length > 0 && (
                   <Combobox.Options
                     static
                     className="max-h-96 transform-gpu scroll-py-3 overflow-y-auto p-3"
                   >
-                    {filteredItems.map((item) => (
+                    {products.map((product) => (
                       <Combobox.Option
-                        key={item.id}
-                        value={item}
+                        key={product.productID}
+                        value={product}
                         className={({ active }) =>
                           classNames(
                             "flex cursor-default select-none rounded-xl p-3",
@@ -112,13 +119,14 @@ export default function SearchCommandPalette({
                           <>
                             <div
                               className={classNames(
-                                "flex h-10 w-10 flex-none items-center justify-center rounded-lg",
-                                item.color
+                                "flex h-10 w-10 flex-none items-center justify-center rounded-lg"
                               )}
                             >
-                              <item.icon
-                                className="h-6 w-6 text-white"
-                                aria-hidden="true"
+                              <Image
+                                width={40}
+                                height={40}
+                                alt={product.name}
+                                src={product.image[0].url}
                               />
                             </div>
                             <div className="ml-4 flex-auto">
@@ -128,7 +136,7 @@ export default function SearchCommandPalette({
                                   active ? "text-gray-900" : "text-gray-700"
                                 )}
                               >
-                                {item.name}
+                                {product.name}
                               </p>
                               <p
                                 className={classNames(
@@ -136,7 +144,7 @@ export default function SearchCommandPalette({
                                   active ? "text-gray-700" : "text-gray-500"
                                 )}
                               >
-                                {item.description}
+                                {product.description}
                               </p>
                             </div>
                           </>
@@ -146,7 +154,7 @@ export default function SearchCommandPalette({
                   </Combobox.Options>
                 )}
 
-                {query !== "" && filteredItems.length === 0 && (
+                {query !== "" && products?.length === 0 && (
                   <div className="px-6 py-14 text-center text-sm sm:px-14">
                     <ExclamationCircleIcon
                       type="outline"
