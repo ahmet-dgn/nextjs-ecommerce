@@ -1,5 +1,5 @@
 import getData from "@/lib/query";
-import FilterSideBar from "@/components/filterSideBar";
+import FilterSideBarWithProduct from "@/components/filterSideBarWithProduct";
 
 export default async function Search({ searchParams }) {
   const queryParams = Object.keys(searchParams)
@@ -14,10 +14,27 @@ export default async function Search({ searchParams }) {
     })
     .join("&");
 
-  const productsData = await getData(
-    `products${queryParams ? "?" + queryParams : ""}`
+  const pageLimit = 9;
+  const page = searchParams._page;
+  const productsQuery = await getData(
+    `products?_limit=${pageLimit}${page ? "&_page" + page : "&_page=1"}${
+      queryParams ? "&" + queryParams : ""
+    }`
   );
+  const categoriesQuery = await getData("categories");
+  const productsData = productsQuery.props.data;
+  const categoriesData = categoriesQuery.props.data;
+  const pageTotal = productsQuery.props.xTotalCounts;
 
-  const categoriesData = await getData("categories");
-  return <FilterSideBar categories={categoriesData} products={productsData} />;
+  return (
+    <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <FilterSideBarWithProduct
+        categories={categoriesData}
+        products={productsData}
+        pageLimit={pageLimit}
+        pageTotal={pageTotal}
+        page={page}
+      />
+    </main>
+  );
 }
