@@ -100,6 +100,7 @@ export default function Navbar({ navigation }) {
                               </div>
                               <Link
                                 href={item.href}
+                                onClick={() => setOpen(false)}
                                 className="mt-6 block text-sm font-medium text-gray-900"
                               >
                                 <span
@@ -255,7 +256,6 @@ export default function Navbar({ navigation }) {
                                               </div>
                                               <Link
                                                 href={item.href}
-                                                onClick={() => setOpen(false)}
                                                 className="mt-4 block font-medium text-gray-900"
                                               >
                                                 <span
