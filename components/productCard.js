@@ -10,7 +10,7 @@ export default function ProductCard({ productData }) {
     setImgErrorClass(true);
   };
   return (
-    <div className="group relative">
+    <div className="group relative z-0">
       <div className=" w-full overflow-hidden rounded-lg aspect-h-3 aspect-w-2 group-hover:opacity-75 sm:h-auto">
         <div className="bg-neutral-100">
           <Image
