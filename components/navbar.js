@@ -2,6 +2,7 @@
 
 import { Fragment, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
+import SearchCommandPalette from "./SearchCommandPalette";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -19,7 +20,7 @@ function classNames(...classes) {
 
 export default function Navbar({ navigation }) {
   const [open, setOpen] = useState(false);
-
+  const [searchDialog, setSearchDialog] = useState(false);
   return (
     <div className="bg-white">
       {/* Mobile menu */}
@@ -181,7 +182,6 @@ export default function Navbar({ navigation }) {
               </div>
             </div>
           </div>
-
           {/* Secondary navigation */}
           <div className="bg-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -321,6 +321,17 @@ export default function Navbar({ navigation }) {
 
                   <div className="flex flex-1 items-center justify-end">
                     <div className="flex items-center lg:ml-8">
+                      {/* Search */}
+                      <button
+                        className="ml-2 p-2 text-gray-400 hover:text-gray-500"
+                        onClick={() => setSearchDialog(true)}
+                      >
+                        <span className="sr-only">Search</span>
+                        <MagnifyingGlassIcon
+                          className="h-6 w-6"
+                          aria-hidden="true"
+                        />
+                      </button>
                       {/* Cart */}
                       <div className="ml-4 flow-root lg:ml-8">
                         <Link
@@ -343,6 +354,10 @@ export default function Navbar({ navigation }) {
               </div>
             </div>
           </div>
+          <SearchCommandPalette
+            searchDialog={searchDialog}
+            changeDialogStatus={setSearchDialog}
+          />
         </nav>
       </header>
     </div>
