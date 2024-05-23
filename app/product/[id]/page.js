@@ -1,12 +1,15 @@
 import ProductInfoArea from "@/components/productInfoArea";
-import getData from "@/lib/query";
 import Image from "next/image";
 export const dynamicParams = true;
+
 export async function generateStaticParams() {
-  const response = await fetch(`${process.env.API_URL}products`);
+  const response = await fetch(`${process.env.API_URL}products`, {
+    next: { revalidate: 0 },
+  });
   const products = await response.json();
+
   return products.map((product) => ({
-    slug: product.slug.toString(),
+    id: product.id.toString(),
   }));
 }
 
@@ -86,9 +89,9 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export default async function Product({ params }) {
-  const query = await getData(`products?slug=${params.slug}`);
-
-  const [product] = query.props.data;
+  const response = await fetch(`${process.env.API_URL}/products/${params.id}`);
+  const data = await response.json();
+  const product = data;
 
   return (
     <div className="bg-white">

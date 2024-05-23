@@ -67,16 +67,6 @@ const product = {
     "Machine wash cold with similar colors",
   ],
 };
-const policies = [
-  {
-    name: "International delivery",
-    description: "Get your order in 2 years",
-  },
-  {
-    name: "Loyalty rewards",
-    description: "Don't look at other tees",
-  },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -137,7 +127,6 @@ export default function ProductInfoArea({ productData }) {
               </p>
             </div>
           )}
-
           <div className="rounded-lg border border-blue-100 bg-blue-50 py-2 px-4 mb-8 flex items-center gap-2">
             <TruckIcon
               className="h-10 w-10 text-blue-800
@@ -147,37 +136,38 @@ export default function ProductInfoArea({ productData }) {
               1000 TL Üzeri Siparişlerde Kargo Bedava
             </span>
           </div>
-
-          <RadioGroup
-            value={selectedSize}
-            onChange={setSelectedSize}
-            className="mt-2 border-t pt-8"
-          >
-            <RadioGroup.Label className="sr-only">Boyut Seç</RadioGroup.Label>
-            <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
-              {productData.sizes.map((size) => (
-                <RadioGroup.Option
-                  key={size.name}
-                  value={size}
-                  className={({ active, checked }) =>
-                    classNames(
-                      size.inStock
-                        ? "cursor-pointer focus:outline-none"
-                        : "cursor-not-allowed opacity-25",
-                      active ? "ring-2 ring-emerald-500 ring-offset-2" : "",
-                      checked
-                        ? "border-transparent bg-emerald-600 text-white hover:bg-emerald-700"
-                        : "border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
-                      "flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1"
-                    )
-                  }
-                  disabled={!size.inStock}
-                >
-                  <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
-                </RadioGroup.Option>
-              ))}
-            </div>
-          </RadioGroup>
+          {productData.sizes && (
+            <RadioGroup
+              value={selectedSize}
+              onChange={setSelectedSize}
+              className="mt-2 border-t pt-8"
+            >
+              <RadioGroup.Label className="sr-only">Boyut Seç</RadioGroup.Label>
+              <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
+                {productData.sizes.map((size) => (
+                  <RadioGroup.Option
+                    key={size.name}
+                    value={size}
+                    className={({ active, checked }) =>
+                      classNames(
+                        size.inStock
+                          ? "cursor-pointer focus:outline-none"
+                          : "cursor-not-allowed opacity-25",
+                        active ? "ring-2 ring-emerald-500 ring-offset-2" : "",
+                        checked
+                          ? "border-transparent bg-emerald-600 text-white hover:bg-emerald-700"
+                          : "border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
+                        "flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1"
+                      )
+                    }
+                    disabled={!size.inStock}
+                  >
+                    <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
+                  </RadioGroup.Option>
+                ))}
+              </div>
+            </RadioGroup>
+          )}
         </div>
 
         <button

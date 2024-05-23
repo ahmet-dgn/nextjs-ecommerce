@@ -94,7 +94,7 @@ export default function SearchCommandPalette({
                   >
                     {products.map((product) => (
                       <Combobox.Option
-                        key={product.productID}
+                        key={product.id}
                         value={product}
                         className={({ active }) =>
                           classNames(

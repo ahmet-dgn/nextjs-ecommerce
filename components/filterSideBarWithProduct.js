@@ -488,7 +488,7 @@ export default function FilterSideBarWithProduct({
           <div className="lg:col-span-3">
             <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-8 lg:gap-x-8">
               {products.map((product) => (
-                <ProductCard key={product.productID} productData={product} />
+                <ProductCard key={product.id} productData={product} />
               ))}
             </div>
             {pageTotal > pageLimit && (
