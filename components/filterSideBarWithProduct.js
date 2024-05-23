@@ -228,7 +228,7 @@ export default function FilterSideBarWithProduct({
                                       option.query,
                                       option.value
                                     )}
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
                                     onChange={() => {
                                       router.push(
                                         pathname +
@@ -261,8 +261,8 @@ export default function FilterSideBarWithProduct({
         </Dialog>
       </Transition.Root>
 
-      <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-        <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+      <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-8">
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900">
           Kategoriler
         </h1>
 
@@ -456,7 +456,7 @@ export default function FilterSideBarWithProduct({
                               defaultValue={option.value}
                               type="checkbox"
                               checked={params.has(option.query, option.value)}
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
                               onChange={() => {
                                 router.push(
                                   pathname +

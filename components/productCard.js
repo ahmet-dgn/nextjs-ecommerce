@@ -9,6 +9,7 @@ export default function ProductCard({ productData }) {
     setImgSrc("/icons/no-image.svg");
     setImgErrorClass(true);
   };
+
   return (
     <div className="group relative z-0">
       <div className=" w-full overflow-hidden rounded-lg aspect-h-3 aspect-w-2 group-hover:opacity-75 sm:h-auto">
@@ -32,7 +33,7 @@ export default function ProductCard({ productData }) {
         </div>
       </div>
       <h3 className="mt-4 text-sm sm:text-base font-semibold text-gray-900">
-        <Link href="#">
+        <Link href={`product/${productData.slug}`}>
           <span className="absolute inset-0" />
           {productData.name}
         </Link>

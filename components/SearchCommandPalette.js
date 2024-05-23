@@ -9,18 +9,6 @@ import {
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 
-const items = [
-  {
-    id: 1,
-    name: "Text",
-    description: "Add freeform text with basic formatting options.",
-    url: "#",
-    color: "bg-indigo-500",
-    icon: PencilSquareIcon,
-  },
-  // More items...
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -70,7 +58,7 @@ export default function SearchCommandPalette({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto px-4 py-20  md:p-20">
