@@ -16,9 +16,14 @@ export default function Cart() {
   cart.forEach((item) => {
     cartTotalOrginalPrice += item.price * item.quantity;
     if (item.discountPrice) {
-      cartTotalDiscaountPrice += item.discountPrice * item.quantity;
+      cartTotalDiscaountPrice +=
+        (item.price - item.discountPrice) * item.quantity;
     }
   });
+
+  const shippingPrice =
+    cartTotalOrginalPrice - cartTotalDiscaountPrice > 5000 ? 0 : 1000;
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
@@ -116,7 +121,11 @@ export default function Cart() {
                           </select>
 
                           <button className="ml-4 text-sm font-medium text-red-600 hover:text-red-500 sm:ml-0 sm:mt-3">
-                            <span onClick={() => removeFromCart(product.id)}>
+                            <span
+                              onClick={() =>
+                                removeFromCart(product.id, product.option)
+                              }
+                            >
                               Ürünü sil
                             </span>
                           </button>
@@ -138,14 +147,38 @@ export default function Cart() {
                     <div className="flex items-center justify-between py-4">
                       <dt className="text-gray-600">Ara Toplam</dt>
                       <dd className="font-medium text-gray-900">
-                        {cartTotalOrginalPrice} TL
+                        {cartTotalOrginalPrice.toFixed(2)} TL
                       </dd>
                     </div>
                     {cartTotalDiscaountPrice > 0 && (
                       <div className="flex items-center justify-between py-4">
-                        <dt className="text-gray-600">İndirim</dt>
-                        <dd className="font-medium text-gray-900">
-                          {cartTotalDiscaountPrice} TL
+                        <dt className="text-red-600">İndirim</dt>
+                        <dd className="font-medium text-red-600">
+                          {cartTotalDiscaountPrice.toFixed(2)} TL
+                        </dd>
+                      </div>
+                    )}
+                    {cartTotalDiscaountPrice > 0 && (
+                      <div className="flex items-center justify-between py-4">
+                        <dt
+                          className={`${
+                            shippingPrice === 0
+                              ? "text-blue-700"
+                              : "text-gray-600"
+                          }`}
+                        >
+                          Kargo
+                        </dt>
+                        <dd
+                          className={`font-medium ${
+                            shippingPrice === 0
+                              ? "text-blue-700"
+                              : "text-gray-600"
+                          }`}
+                        >
+                          {shippingPrice === 0
+                            ? "Ücretsiz Kargo"
+                            : shippingPrice + " TL"}
                         </dd>
                       </div>
                     )}
@@ -156,8 +189,10 @@ export default function Cart() {
                       </dt>
                       <dd className="text-base font-medium text-gray-900">
                         {(
-                          cartTotalOrginalPrice - cartTotalDiscaountPrice
-                        ).toFixed(2)}
+                          cartTotalOrginalPrice -
+                          cartTotalDiscaountPrice +
+                          shippingPrice
+                        ).toFixed(2)}{" "}
                         TL
                       </dd>
                     </div>
@@ -165,7 +200,7 @@ export default function Cart() {
                 </div>
               </div>
               <div className="mt-10">
-                <button className="w-full rounded-md border border-transparent bg-emerald-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-50">
+                <button className="w-full rounded-md border border-transparent bg-emerald-700 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-50">
                   Alışverişi Tamamla
                 </button>
               </div>
@@ -192,7 +227,7 @@ export default function Cart() {
                 href="/search"
                 className="w-full rounded-md border border-transparent bg-emerald-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-50"
               >
-                Alışverişe Dön
+                Alışverişe Devam Et
               </Link>
             </div>
           </div>

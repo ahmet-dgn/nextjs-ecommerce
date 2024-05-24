@@ -180,7 +180,7 @@ export default function ProductInfoArea({ productData }) {
 "
           />
           <span className=" text-sm font-medium text-blue-800">
-            1000 TL Üzeri Siparişlerde Kargo Bedava
+            5000 TL Üzeri Siparişlerde Kargo Bedava
           </span>
         </div>
         {productData.sizes && (

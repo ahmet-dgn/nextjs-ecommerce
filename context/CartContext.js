@@ -53,10 +53,15 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const removeFromCart = (productId) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  const removeFromCart = (productId, productoOption) => {
+    setCart((prevCart) =>
+      prevCart.filter((item) =>
+        productoOption
+          ? item.id !== productId || item.option !== productoOption
+          : item.id !== productId
+      )
+    );
   };
-
   return (
     <CartContext.Provider
       value={{ cart, addToCart, removeFromCart, updateCartItemQuantity }}
