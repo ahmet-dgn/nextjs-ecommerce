@@ -2,8 +2,10 @@
 
 import { Fragment, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
+import { useCart } from "@/context/CartContext";
 import SearchCommandPalette from "./SearchCommandPalette";
 import Link from "next/link";
+
 import Image from "next/image";
 import {
   Bars3Icon,
@@ -19,6 +21,13 @@ function classNames(...classes) {
 export default function Navbar({ navigation }) {
   const [open, setOpen] = useState(false);
   const [searchDialog, setSearchDialog] = useState(false);
+  const { cart } = useCart();
+
+  let cartTotalProduct = 0;
+  cart.forEach((item) => {
+    cartTotalProduct = cartTotalProduct + item.quantity.valueOf();
+  });
+
   return (
     <div className="bg-white">
       {/* Mobile menu */}
@@ -205,7 +214,7 @@ export default function Navbar({ navigation }) {
                       <div className="flex h-full justify-center space-x-8">
                         {navigation.categories.map((category) => (
                           <Popover key={category.name} className="flex">
-                            {({ open }) => (
+                            {({ open, setOpen }) => (
                               <>
                                 <div className="relative flex">
                                   <Popover.Button
@@ -252,9 +261,11 @@ export default function Navbar({ navigation }) {
                                                   className="object-cover object-top"
                                                 />
                                               </div>
+
                                               <Link
                                                 href={item.href}
                                                 className="mt-4 block font-medium text-gray-900"
+                                                onClick={() => setOpen(false)}
                                               >
                                                 <span
                                                   className="absolute inset-0 z-10"
@@ -333,15 +344,25 @@ export default function Navbar({ navigation }) {
                       {/* Cart */}
                       <div className="ml-4 flow-root lg:ml-8">
                         <Link
-                          href="#"
+                          href="/cart"
                           className="group -m-2 flex items-center p-2"
                         >
                           <ShoppingBagIcon
-                            className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                            className={`h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500 ${
+                              cartTotalProduct > 0
+                                ? "text-red-600"
+                                : "text-gray-700"
+                            }`}
                             aria-hidden="true"
                           />
-                          <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                            0
+                          <span
+                            className={`ml-1 text-sm font-medium ${
+                              cartTotalProduct > 0
+                                ? "text-red-600"
+                                : "text-gray-700"
+                            }  group-hover:text-gray-800`}
+                          >
+                            {cartTotalProduct}
                           </span>
                           <span className="sr-only">Sepet</span>
                         </Link>

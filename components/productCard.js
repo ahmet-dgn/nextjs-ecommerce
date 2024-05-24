@@ -1,34 +1,43 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ProductCard({ productData }) {
-  const [imgSrc, setImgSrc] = useState(productData.images[0].url);
-  const [imgErrorClass, setImgErrorClass] = useState(false);
-  const handleError = () => {
-    setImgSrc("/icons/no-image.svg");
-    setImgErrorClass(true);
-  };
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (productData && productData.id) {
+      setIsLoading(false);
+    }
+  }, [productData]);
+
+  if (isLoading) {
+    return (
+      <div className=" animate-pulse">
+        <div className="group relative z-0">
+          <div className=" w-full overflow-hidden rounded-lg aspect-h-3 aspect-w-2 group-hover:opacity-75 sm:h-auto">
+            <div className="bg-neutral-200"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="group relative z-0">
       <div className=" w-full overflow-hidden rounded-lg aspect-h-3 aspect-w-2 group-hover:opacity-75 sm:h-auto">
         <div className="bg-neutral-100">
           <Image
-            src={imgSrc}
+            src={productData.images[0].url}
             alt={
               productData.images[0].alt
                 ? productData.images[0].alt
                 : productData.name
             }
-            onError={handleError}
             fill
             sizes="(max-width: 640px) 50vw, 33vw"
-            className={
-              imgErrorClass
-                ? `object-fit !w-2/3 mx-auto`
-                : `h-full w-full object-cover object-center `
-            }
+            className={`h-full w-full object-cover object-center `}
           />
         </div>
       </div>

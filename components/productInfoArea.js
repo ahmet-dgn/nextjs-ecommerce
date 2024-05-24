@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
+import { useCart } from "@/context/CartContext";
 import { TruckIcon } from "@heroicons/react/24/outline";
 import { RadioGroup } from "@headlessui/react";
 const product = {
@@ -72,17 +72,62 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export default function ProductInfoArea({ productData }) {
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  const [selectedSize, setSelectedSize] = useState();
+  const { addToCart, cart, updateCartItemQuantity } = useCart();
 
   const originalPrice = productData.price;
-  const discountPrice = productData.discountPrice;
-  const discountPercentage = Math.round(
-    ((originalPrice - discountPrice) / originalPrice) * 100
-  );
+  const discountPrice = productData.discountPrice && productData.discountPrice;
+  const optionPrice = selectedSize ? selectedSize.price : null;
+  const optiondiscountPrice = selectedSize ? selectedSize.discountPrice : null;
+  console.log();
+  let discountPercentage;
+  if (optiondiscountPrice) {
+    discountPercentage = Math.round(
+      ((optionPrice - optiondiscountPrice) / optionPrice) * 100
+    );
+  } else
+    discountPercentage = Math.round(
+      ((originalPrice - discountPrice) / originalPrice) * 100
+    );
+
+  const productAddToCartHandler = () => {
+    let foundDuplicate = false;
+    const cartItem = {
+      id: productData.id,
+      name: productData.name,
+      price: optionPrice || originalPrice || "",
+      discountPrice: optiondiscountPrice || discountPrice || "",
+      ...(selectedSize && { option: selectedSize.name }),
+      quantity: 1,
+      image: productData.images[0].url,
+    };
+
+    if (cart.length === 0) {
+      addToCart(cartItem);
+    } else if (cart.length > 0) {
+      for (const item of cart) {
+        // Eğer aynı ürün ID'si ve aynı seçenek varsa
+        if (
+          cartItem.option
+            ? item.id === cartItem.id && item.option === cartItem.option
+            : item.id === cartItem.id
+        ) {
+          item.quantity += 1; // Quantity'i artır
+          foundDuplicate = true; // Duplicate bulunduğunu işaretle
+          updateCartItemQuantity(item);
+          break;
+        }
+      }
+
+      if (!foundDuplicate) {
+        addToCart(cartItem); // Hiçbir eşleşme bulunamazsa ekle
+      }
+    }
+  };
 
   return (
     <>
-      <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+      <h1 className="text-2xl font-bold tracking-tight text-gray-900 mt-8 md:mt-0 md:text-3xl">
         {productData.name && productData.name}
       </h1>
       <div className="mt-3 mb-8">
@@ -90,15 +135,20 @@ export default function ProductInfoArea({ productData }) {
         <div className="flex justify-between items-end">
           <div>
             <p
-              className={`text-3xl tracking-tight text-gray-900 ${
+              className={`text-xl md:text-2xl tracking-tight text-gray-900 ${
                 productData.discountPrice && "line-through !text-xl"
               }`}
             >
-              {productData.price && productData.price} TL
+              {selectedSize ? selectedSize.price : productData.price} TL
             </p>
             {productData.discountPrice && (
-              <p className={`text-3xl tracking-tight text-red-600 `}>
-                {productData.discountPrice} TL
+              <p
+                className={`ttext-xl md:text-2xl  tracking-tight text-red-600 `}
+              >
+                {selectedSize
+                  ? selectedSize.discountPrice
+                  : productData.discountPrice}
+                TL
               </p>
             )}
           </div>
@@ -117,66 +167,63 @@ export default function ProductInfoArea({ productData }) {
         </div>
       </div>
 
-      <form>
-        {/* Size picker */}
-        <div className="mt-8">
-          {productData.shortDescription && (
-            <div className="mb-8 text-sm ">
-              <p className="mt-2 text-gray-500">
-                {productData.shortDescription}
-              </p>
-            </div>
-          )}
-          <div className="rounded-lg border border-blue-100 bg-blue-50 py-2 px-4 mb-8 flex items-center gap-2">
-            <TruckIcon
-              className="h-10 w-10 text-blue-800
-"
-            />
-            <span className=" text-sm font-medium text-blue-800">
-              1000 TL Üzeri Siparişlerde Kargo Bedava
-            </span>
+      {/* Size picker */}
+      <div className="mt-8">
+        {productData.shortDescription && (
+          <div className="mb-8 text-sm ">
+            <p className="mt-2 text-gray-500">{productData.shortDescription}</p>
           </div>
-          {productData.sizes && (
-            <RadioGroup
-              value={selectedSize}
-              onChange={setSelectedSize}
-              className="mt-2 border-t pt-8"
-            >
-              <RadioGroup.Label className="sr-only">Boyut Seç</RadioGroup.Label>
-              <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
-                {productData.sizes.map((size) => (
-                  <RadioGroup.Option
-                    key={size.name}
-                    value={size}
-                    className={({ active, checked }) =>
-                      classNames(
-                        size.inStock
-                          ? "cursor-pointer focus:outline-none"
-                          : "cursor-not-allowed opacity-25",
-                        active ? "ring-2 ring-emerald-500 ring-offset-2" : "",
-                        checked
-                          ? "border-transparent bg-emerald-600 text-white hover:bg-emerald-700"
-                          : "border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
-                        "flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1"
-                      )
-                    }
-                    disabled={!size.inStock}
-                  >
-                    <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
-                  </RadioGroup.Option>
-                ))}
-              </div>
-            </RadioGroup>
-          )}
+        )}
+        <div className="rounded-lg border border-blue-100 bg-blue-50 py-2 px-4 mb-8 flex items-center gap-2">
+          <TruckIcon
+            className="h-10 w-10 text-blue-800
+"
+          />
+          <span className=" text-sm font-medium text-blue-800">
+            1000 TL Üzeri Siparişlerde Kargo Bedava
+          </span>
         </div>
+        {productData.sizes && (
+          <RadioGroup
+            value={selectedSize}
+            onChange={setSelectedSize}
+            className="mt-2 border-t pt-8"
+          >
+            <RadioGroup.Label className="sr-only">Boyut Seç</RadioGroup.Label>
+            <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
+              {productData.sizes.map((size) => (
+                <RadioGroup.Option
+                  key={size.name}
+                  value={size}
+                  className={({ active, checked }) =>
+                    classNames(
+                      size.inStock
+                        ? "cursor-pointer focus:outline-none"
+                        : "cursor-not-allowed opacity-25",
+                      active ? "ring-2 ring-emerald-500 ring-offset-2" : "",
+                      checked
+                        ? "border-transparent bg-emerald-600 text-white hover:bg-emerald-700"
+                        : "border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
+                      "flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1"
+                    )
+                  }
+                  disabled={!size.inStock}
+                >
+                  <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
+                </RadioGroup.Option>
+              ))}
+            </div>
+          </RadioGroup>
+        )}
+      </div>
 
-        <button
-          type="submit"
-          className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-emerald-600 px-8 py-3 text-base font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-        >
-          Sepete Ekle
-        </button>
-      </form>
+      <button
+        className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-emerald-600 px-8 py-3 text-base font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-25"
+        onClick={() => productAddToCartHandler()}
+        disabled={!selectedSize && productData.sizes}
+      >
+        Sepete Ekle
+      </button>
 
       {/* Product details */}
       <div className="mt-10">

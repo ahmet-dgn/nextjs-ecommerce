@@ -16,12 +16,21 @@ export default async function Search({ searchParams }) {
 
   const pageLimit = 9;
   const page = searchParams._page;
+
   const productsQuery = await getData(
-    `products?_limit=${pageLimit}${page ? "&_page" + page : "&_page=1"}${
+    `products?_limit=${pageLimit}${page ? "&_page=" + page : "&_page=1"}${
       queryParams ? "&" + queryParams : ""
     }`
   );
   const categoriesQuery = await getData("categories");
+
+  if (productsQuery.props.error || categoriesQuery.props.error) {
+    // Hata durumunda gösterilecek mesaj.
+    console.error("Products error:", productsQuery.props.error);
+    console.error("Categories error:", categoriesQuery.props.error);
+    return <div>Veri yüklenirken bir hata oluştu.</div>;
+  }
+
   const productsData = productsQuery.props.data;
   const categoriesData = categoriesQuery.props.data;
   const pageTotal = productsQuery.props.xTotalCounts;
