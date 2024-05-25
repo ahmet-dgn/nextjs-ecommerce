@@ -22,18 +22,7 @@ const filters = [
       { value: "siyah", label: "Siyah", query: "features.color" },
       { value: "mavi", label: "Mavi", query: "features.color" },
       { value: "yesil", label: "Yeşil", query: "features.color" },
-      { value: "toz-pembe", label: "Toz Pembe", query: "features.color" },
-      { value: "rose-gold", label: "Rose Gold", query: "features.color" },
-    ],
-  },
-  {
-    id: "size",
-    name: "Beden",
-    options: [
-      { value: "s", label: "S", query: "sizes.small" },
-      { value: "m", label: "M", query: "sizes.medium" },
-      { value: "l", label: "L", query: "sizes.large" },
-      { value: "xl", label: "XL", query: "sizes.xlarge" },
+      { value: "pembe", label: "Pembe", query: "features.color" },
     ],
   },
   {
@@ -53,8 +42,8 @@ const filters = [
     name: "Kalıp",
     options: [
       { value: "normal", label: "Normal", query: "features.fit" },
-      { value: "genis", label: "Geniş", query: "features.material" },
-      { value: "dar", label: "Dar", query: "features.material" },
+      { value: "genis", label: "Geniş", query: "features.fit" },
+      { value: "dar", label: "Dar", query: "features.fit" },
     ],
   },
 ];
@@ -110,6 +99,10 @@ export default function FilterSideBarWithProduct({
     [searchParams]
   );
 
+  const handleRefresh = () => {
+    router.reload();
+  };
+
   return (
     <>
       {/* Mobile filter dialog */}
@@ -162,7 +155,7 @@ export default function FilterSideBarWithProduct({
                   >
                     <li>
                       <Link
-                        href={`/search`}
+                        href={pathname}
                         className="block px-2 py-3"
                         onClick={() => setMobileFiltersOpen(false)}
                       >
@@ -413,7 +406,9 @@ export default function FilterSideBarWithProduct({
               className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
             >
               <li>
-                <Link href={`/search`}>Tüm ürünler</Link>
+                <Link href={`/search`} onClick={handleRefresh}>
+                  Tüm ürünler
+                </Link>
               </li>
               {categories.map((category) => (
                 <li key={category.categoryID}>
@@ -486,11 +481,18 @@ export default function FilterSideBarWithProduct({
 
           {/* Product grid */}
           <div className="lg:col-span-3">
-            <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-8 lg:gap-x-8">
-              {products.map((product) => (
-                <ProductCard key={product.id} productData={product} />
-              ))}
-            </div>
+            {products.length === 0 ? (
+              <p className="w-fit text-center mt-4 font-medium bg-gray-100  p-4 rounded-lg text-sm mx-auto">
+                Aradığınız kriterlere göre ürün bulunamadı.
+              </p>
+            ) : (
+              <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-8 lg:gap-x-8">
+                {products.map((product) => (
+                  <ProductCard key={product.id} productData={product} />
+                ))}
+              </div>
+            )}
+
             {pageTotal > pageLimit && (
               <Pagination
                 path={pathname}

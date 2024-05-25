@@ -6,24 +6,6 @@ import { useState, useEffect } from "react";
 export default function ProductCard({ productData }) {
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (productData && productData.id) {
-      setIsLoading(false);
-    }
-  }, [productData]);
-
-  if (isLoading) {
-    return (
-      <div className=" animate-pulse">
-        <div className="group relative z-0">
-          <div className=" w-full overflow-hidden rounded-lg aspect-h-3 aspect-w-2 group-hover:opacity-75 sm:h-auto">
-            <div className="bg-neutral-200"></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="group relative z-0">
       <div className=" w-full overflow-hidden rounded-lg aspect-h-3 aspect-w-2 group-hover:opacity-75 sm:h-auto">

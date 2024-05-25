@@ -222,7 +222,7 @@ export default function Navbar({ navigation }) {
                                       open
                                         ? "border-emerald-600 text-emerald-600"
                                         : "border-transparent text-gray-700 hover:text-gray-800",
-                                      "relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out"
+                                      "relative  -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out"
                                     )}
                                   >
                                     {category.name}

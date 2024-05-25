@@ -3,12 +3,17 @@ import { useCart } from "@/context/CartContext";
 import { CheckIcon, ClockIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
+import { Toaster, toast } from "sonner";
+
 export default function Cart() {
   const { cart, removeFromCart, updateCartItemQuantity } = useCart();
   const products = cart;
 
-  const handleQuantityChange = (productoOption, productId, newQuantity) => {
-    updateCartItemQuantity(productoOption, productId, newQuantity);
+  useEffect(() => {}, [cart]);
+
+  const handleQuantityChange = (productOption, productId, newQuantity) => {
+    updateCartItemQuantity(productOption, productId, newQuantity);
   };
 
   let cartTotalOrginalPrice = 0;
@@ -24,6 +29,10 @@ export default function Cart() {
   const shippingPrice =
     cartTotalOrginalPrice - cartTotalDiscaountPrice > 5000 ? 0 : 1000;
 
+  const removeCartHandler = (productId, productOption) => {
+    toast.success("Ürünü sepetten başarıyla çıkardınız.");
+    removeFromCart(productId, productOption);
+  };
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
@@ -41,7 +50,10 @@ export default function Cart() {
                 className="divide-y divide-gray-200 border-b border-t border-gray-200"
               >
                 {products.map((product) => (
-                  <li key={product.id} className="flex py-6 sm:py-10">
+                  <li
+                    key={`${product.id}-${product.option || ""}`}
+                    className="flex py-6 sm:py-10"
+                  >
                     <div className="flex-shrink-0">
                       <Image
                         width={384}
@@ -66,10 +78,9 @@ export default function Cart() {
                             </h3>
 
                             {product.option ? (
-                              <p className="mt-1 text-sm text-gray-500 ">
+                              <p className="mt-1 text-sm text-gray-500">
                                 Beden:{" "}
                                 <span className="lowercase">
-                                  {" "}
                                   {product.option}
                                 </span>
                               </p>
@@ -81,11 +92,15 @@ export default function Cart() {
                                 product.discountPrice ? "line-through" : ""
                               }`}
                             >
-                              {product.price * product.quantity} TL
+                              {(product.price * product.quantity).toFixed(2)}
+                              TL
                             </p>
                             {product.discountPrice && (
                               <p className="text-right text-sm font-medium text-red-600">
-                                {product.discountPrice * product.quantity} TL
+                                {(
+                                  product.discountPrice * product.quantity
+                                ).toFixed(2)}
+                                TL
                               </p>
                             )}
                           </div>
@@ -119,15 +134,14 @@ export default function Cart() {
                               )
                             )}
                           </select>
-
-                          <button className="ml-4 text-sm font-medium text-red-600 hover:text-red-500 sm:ml-0 sm:mt-3">
-                            <span
-                              onClick={() =>
-                                removeFromCart(product.id, product.option)
-                              }
-                            >
-                              Ürünü sil
-                            </span>
+                          <Toaster position="top-center" richColors />
+                          <button
+                            className="ml-4 text-sm font-medium text-red-600 hover:text-red-500 sm:ml-0 sm:mt-3"
+                            onClick={() =>
+                              removeCartHandler(product.id, product.option)
+                            }
+                          >
+                            Ürünü sil
                           </button>
                         </div>
                       </div>
@@ -138,7 +152,7 @@ export default function Cart() {
             </div>
 
             {/* Order summary */}
-            <div className="mt-10 ">
+            <div className="mt-10">
               <div className="rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:p-8">
                 <h2 className="sr-only">Sipariş Özeti</h2>
 
@@ -158,30 +172,29 @@ export default function Cart() {
                         </dd>
                       </div>
                     )}
-                    {cartTotalDiscaountPrice > 0 && (
-                      <div className="flex items-center justify-between py-4">
-                        <dt
-                          className={`${
-                            shippingPrice === 0
-                              ? "text-blue-700"
-                              : "text-gray-600"
-                          }`}
-                        >
-                          Kargo
-                        </dt>
-                        <dd
-                          className={`font-medium ${
-                            shippingPrice === 0
-                              ? "text-blue-700"
-                              : "text-gray-600"
-                          }`}
-                        >
-                          {shippingPrice === 0
-                            ? "Ücretsiz Kargo"
-                            : shippingPrice + " TL"}
-                        </dd>
-                      </div>
-                    )}
+
+                    <div className="flex items-center justify-between py-4">
+                      <dt
+                        className={`${
+                          shippingPrice === 0
+                            ? "text-blue-700"
+                            : "text-gray-600"
+                        }`}
+                      >
+                        Kargo
+                      </dt>
+                      <dd
+                        className={`font-medium ${
+                          shippingPrice === 0
+                            ? "text-blue-700"
+                            : "text-gray-600"
+                        }`}
+                      >
+                        {shippingPrice === 0
+                          ? "Ücretsiz Kargo"
+                          : shippingPrice + " TL"}
+                      </dd>
+                    </div>
 
                     <div className="flex items-center justify-between py-4">
                       <dt className="text-base font-medium text-gray-900">
@@ -207,7 +220,7 @@ export default function Cart() {
 
               <div className="mt-6 text-center text-sm text-gray-500">
                 <p>
-                  or{" "}
+                  veya{" "}
                   <Link
                     href="/search"
                     className="font-medium text-emerald-600 hover:text-emerald-500"

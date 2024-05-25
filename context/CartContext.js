@@ -6,7 +6,6 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
-  // Sepeti localStorage'dan yükle
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedCart = localStorage.getItem("cart");
@@ -20,7 +19,6 @@ export const CartProvider = ({ children }) => {
     }
   }, []);
 
-  // Sepeti localStorage'a kaydet
   useEffect(() => {
     if (typeof window !== "undefined") {
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -31,37 +29,33 @@ export const CartProvider = ({ children }) => {
     setCart((prevCart) => [...prevCart, product]);
   };
 
-  const updateCartItemQuantity = (productoOption, productId, newQuantity) => {
+  const updateCartItemQuantity = (productOption, productId, newQuantity) => {
     setCart((prevCart) =>
       prevCart.map((item) => {
-        if (productoOption) {
-          // Eğer `productoOption` varsa, productId ve option'a göre güncelleme yap
-          if (item.id === productId && item.option === productoOption) {
+        if (productOption) {
+          if (item.id === productId && item.option === productOption) {
             return { ...item, quantity: newQuantity };
-          } else {
-            return item;
           }
         } else {
-          // `productoOption` yoksa sadece productId'ye göre güncelleme yap
           if (item.id === productId) {
             return { ...item, quantity: newQuantity };
-          } else {
-            return item;
           }
         }
+        return item;
       })
     );
   };
 
-  const removeFromCart = (productId, productoOption) => {
+  const removeFromCart = (productId, productOption) => {
     setCart((prevCart) =>
       prevCart.filter((item) =>
-        productoOption
-          ? item.id !== productId || item.option !== productoOption
+        productOption
+          ? item.id !== productId || item.option !== productOption
           : item.id !== productId
       )
     );
   };
+
   return (
     <CartContext.Provider
       value={{ cart, addToCart, removeFromCart, updateCartItemQuantity }}

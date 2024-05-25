@@ -22,14 +22,8 @@ export default async function Search({ searchParams }) {
       queryParams ? "&" + queryParams : ""
     }`
   );
-  const categoriesQuery = await getData("categories");
 
-  if (productsQuery.props.error || categoriesQuery.props.error) {
-    // Hata durumunda gösterilecek mesaj.
-    console.error("Products error:", productsQuery.props.error);
-    console.error("Categories error:", categoriesQuery.props.error);
-    return <div>Veri yüklenirken bir hata oluştu.</div>;
-  }
+  const categoriesQuery = await getData("categories");
 
   const productsData = productsQuery.props.data;
   const categoriesData = categoriesQuery.props.data;

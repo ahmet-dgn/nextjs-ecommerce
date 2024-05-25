@@ -1,8 +1,7 @@
 import ProductInfoArea from "@/components/productInfoArea";
 import Image from "next/image";
-
+import Slider from "@/components/slider";
 export const dynamicParams = true;
-
 export async function generateStaticParams() {
   const response = await fetch(`${process.env.API_URL}products`, {
     next: { revalidate: 0 },
@@ -90,7 +89,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export default async function Product({ params }) {
-  const response = await fetch(`${process.env.API_URL}/products/${params.id}`);
+  const response = await fetch(`${process.env.API_URL}products/${params.id}`);
   const data = await response.json();
   const product = data;
 
@@ -102,8 +101,10 @@ export default async function Product({ params }) {
             {/* Image gallery */}
             <div className="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0">
               <h2 className="sr-only">Images</h2>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8 relative">
+              <div className="lg:hidden ">
+                <Slider sliders={product.images} />
+              </div>
+              <div className=" grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8 relative hidden lg:grid">
                 {product.images.map((image, index) => (
                   <Image
                     key={index}
