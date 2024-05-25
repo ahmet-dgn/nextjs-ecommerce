@@ -171,18 +171,18 @@ export default function Navbar({ navigation }) {
       <header className="relative">
         <nav aria-label="Top">
           {/* Top navigation */}
-          <div className="bg-gray-900">
+          <div className="bg-gray-100">
             <div className="mx-auto flex h-10 max-w-7xl items-center justify-end px-4 sm:px-6 lg:px-8">
               <div className="flex items-center space-x-6">
                 <Link
                   href="#"
-                  className="text-sm font-medium text-white hover:text-gray-100"
+                  className="text-sm font-medium text-gray-900 hover:text-gray-100"
                 >
                   Giriş yap
                 </Link>
                 <Link
                   href="#"
-                  className="text-sm font-medium text-white hover:text-gray-100"
+                  className="text-sm font-medium text-gray-900 hover:text-gray-100"
                 >
                   Kayıt ol
                 </Link>
@@ -193,7 +193,7 @@ export default function Navbar({ navigation }) {
           <div className="bg-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="border-b border-gray-200">
-                <div className="flex h-16 items-center justify-between">
+                <div className="flex h-24 items-center justify-between">
                   {/* Logo (lg+) */}
                   <div className="hidden lg:flex lg:flex-1 lg:items-center">
                     <Link href="/">
@@ -201,8 +201,8 @@ export default function Navbar({ navigation }) {
                       <Image
                         width={156}
                         height={96}
-                        className="h-24 w-auto z-50"
-                        src="/logo.png"
+                        className="h-16 w-auto z-50"
+                        src="/smile-logo.svg"
                         alt="smile-logo "
                       />
                     </Link>
@@ -322,7 +322,7 @@ export default function Navbar({ navigation }) {
                     <Image
                       width={156}
                       height={96}
-                      src="/logo.png"
+                      src="/smile-logo.svg"
                       alt="Smile Logo"
                       className="h-16 w-auto "
                     />
