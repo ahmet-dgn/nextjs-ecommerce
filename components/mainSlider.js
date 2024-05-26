@@ -37,8 +37,8 @@ export default function MainSlider({ sliders }) {
               <div className="mx-auto max-w-2xl lg:max-w-7xl px-4 sm:px-6 lg:px-8 py-8  relative">
                 <Link href={slider.url}>
                   <Image
-                    width={1280}
-                    height={750}
+                    width={1216}
+                    height={715}
                     src={slider.image}
                     alt={slider.alt}
                     className="w-full rounded-lg border-white border-4"

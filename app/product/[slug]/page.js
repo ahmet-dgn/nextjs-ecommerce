@@ -5,13 +5,21 @@ import getData from "@/lib/query";
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const response = await fetch(`${process.env.API_URL}products`, {
-    next: { revalidate: 0 },
-  });
-  const products = await response.json();
-  return products.map((product) => ({
-    slug: product.slug.toString(),
-  }));
+  try {
+    const response = await fetch(`${process.env.API_URL}products`, {
+      next: { revalidate: 0 },
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const products = await response.json();
+    return products.map((product) => ({
+      slug: product.slug.toString(),
+    }));
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
+  }
 }
 
 function classNames(...classes) {
