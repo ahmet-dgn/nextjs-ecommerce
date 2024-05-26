@@ -1,6 +1,7 @@
 import ProductInfoArea from "@/components/productInfoArea";
 import Image from "next/image";
 import Slider from "@/components/slider";
+import getData from "@/lib/query";
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
@@ -8,7 +9,6 @@ export async function generateStaticParams() {
     next: { revalidate: 0 },
   });
   const products = await response.json();
-
   return products.map((product) => ({
     slug: product.slug.toString(),
   }));
@@ -19,13 +19,8 @@ function classNames(...classes) {
 }
 
 export async function generateMetadata({ params }) {
-  // fetch data
-  const response = await fetch(
-    `${process.env.API_URL}products?slug=${params.slug}`
-  );
-
-  const data = await response.json();
-  const [product] = data;
+  const productQuery = await getData(`products?slug=${params.slug}`);
+  const [product] = productQuery.props.data;
   const [images] = product.images;
 
   return {

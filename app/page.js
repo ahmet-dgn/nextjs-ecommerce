@@ -4,31 +4,35 @@ import FeaturedProducts from "@/components/featuredProducts";
 import BrandLogos from "@/components/brandLogos";
 import MixProducts from "@/components/mixProducts";
 import WhyUs from "@/components/whyUs";
-
-export default function Home() {
-  const sliders = [
-    {
-      image: "/slider-1.webp",
-      url: "/search?categoryIDs=500",
-      alt: "Şapka",
-      bgColor: "bg-red-100",
-    },
-    {
-      image: "/slider-2.webp",
-      url: "/search?categoryIDs=400",
-      alt: "Tshirt",
-      bgColor: "bg-amber-100",
-    },
-    {
-      image: "/slider-3.webp",
-      url: "/search?categoryIDs=200",
-      alt: "Pantolon",
-      bgColor: "bg-cyan-100",
-    },
-  ];
+import getData from "@/lib/query";
+export const metadata = {
+  title: "Smile İle Tarzını Keşfet! | Trend ve Enerjik Moda ",
+  description:
+    "En yeni moda trendleri, göz alıcı tasarımlar ve enerjik koleksiyonlar Smile'da! Kıyafetlerinle fark yarat ve tarzını ortaya koy. Şimdi keşfet ve stil sahibi ol!",
+  openGraph: {
+    title: "Smile İle Tarzını Keşfet! | Trend ve Enerjik Moda",
+    description:
+      "En yeni moda trendleri, göz alıcı tasarımlar ve enerjik koleksiyonlar Smile'da! Kıyafetlerinle fark yarat ve tarzını ortaya koy. Şimdi keşfet ve stil sahibi ol!",
+    url: `${process.env.WEB_SITE_URL}`,
+    siteName: "Smile",
+    images: [
+      {
+        url: "/why-us.jpg",
+        width: 576,
+        height: 384,
+        alt: "Smile",
+      },
+    ],
+    locale: "tr-TR",
+    type: "website",
+  },
+};
+export default async function Home() {
+  const bannersQuery = await getData("banners");
+  const bannersData = bannersQuery.props.data;
   return (
     <>
-      <MainSlider sliders={sliders} />
+      <MainSlider sliders={bannersData} />
       <FeaturedCategories />
       <FeaturedProducts />
       <BrandLogos />

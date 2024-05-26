@@ -38,8 +38,8 @@ export default function BrandLogos() {
     <div className="bg-white py-16 ">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="-mx-6 grid grid-cols-2 gap-0.5 overflow-hidden sm:mx-0 sm:rounded-2xl md:grid-cols-3">
-          {brands.map((brand) => (
-            <Link href={brand.url}>
+          {brands.map((brand, index) => (
+            <Link href={brand.url} key={index}>
               <div className="bg-gray-100 p-8 sm:p-10 hover:bg-gray-200">
                 <Image
                   className="h-12 w-full object-contain"
