@@ -105,7 +105,7 @@ export default function FeaturedCategories() {
             href="/search"
             className="block text-sm font-semibold text-emerald-600 hover:text-emerald-500"
           >
-            Browse all categories
+            Tüm Kategoriler
             <span aria-hidden="true"> &rarr;</span>
           </Link>
         </div>

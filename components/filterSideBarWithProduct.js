@@ -114,6 +114,7 @@ export default function FilterSideBarWithProduct({
 
   const handleRefresh = () => {
     router.reload();
+    setMobileFiltersOpen(false);
   };
 
   return (
@@ -170,7 +171,7 @@ export default function FilterSideBarWithProduct({
                       <Link
                         href={pathname}
                         className="block px-2 py-3"
-                        onClick={() => setMobileFiltersOpen(false)}
+                        onClick={handleRefresh}
                       >
                         Tüm Ürünler
                       </Link>
