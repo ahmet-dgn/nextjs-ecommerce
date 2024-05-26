@@ -2,6 +2,7 @@ import ProductInfoArea from "@/components/productInfoArea";
 import Image from "next/image";
 import Slider from "@/components/slider";
 export const dynamicParams = true;
+
 export async function generateStaticParams() {
   const response = await fetch(`${process.env.API_URL}products`, {
     next: { revalidate: 0 },
@@ -9,7 +10,7 @@ export async function generateStaticParams() {
   const products = await response.json();
 
   return products.map((product) => ({
-    id: product.id.toString(),
+    slug: product.slug.toString(),
   }));
 }
 
@@ -17,12 +18,15 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export async function generateMetadata({ params, searchParams }, parent) {
-  const id = params.id;
+export async function generateMetadata({ params }) {
   // fetch data
-  const response = await fetch(`${process.env.API_URL}products/${params.id}`);
+  const response = await fetch(
+    `${process.env.API_URL}products?slug=${params.slug}`
+  );
+
   const data = await response.json();
-  const product = data;
+  const [product] = data;
+  const [images] = product.images;
 
   return {
     title: product.name,
@@ -30,14 +34,14 @@ export async function generateMetadata({ params, searchParams }, parent) {
     openGraph: {
       title: product.name,
       description: product.shortDescription,
-      url: `${process.env.WEB_SITE_URL}/products/${params.id}`,
+      url: `${process.env.WEB_SITE_URL}/products/${params.slug}`,
       siteName: "Smile",
       images: [
         {
-          url: product.images[0].url,
+          url: images.url,
           width: 576,
           height: 384,
-          alt: product.images[0].alt,
+          alt: images.alt,
         },
       ],
       locale: "tr-TR",
@@ -47,17 +51,20 @@ export async function generateMetadata({ params, searchParams }, parent) {
 }
 
 export default async function Product({ params }) {
-  const response = await fetch(`${process.env.API_URL}products/${params.id}`);
+  const response = await fetch(
+    `${process.env.API_URL}products?slug=${params.slug}`
+  );
   const data = await response.json();
-  const product = data;
 
+  const [product] = data;
+  const [images] = product.images;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    image: product.images[0].url,
+    image: images.url,
     description: product.shortDescription,
-    url: `${process.env.WEB_SITE_URL}/products/${params.id}`,
+    url: `${process.env.WEB_SITE_URL}/products/${params.slug}`,
     offers: {
       "@type": "Offer",
       availability: "https://schema.org/InStock",

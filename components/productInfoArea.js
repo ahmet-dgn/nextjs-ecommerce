@@ -34,6 +34,7 @@ export default function ProductInfoArea({ productData }) {
     let foundDuplicate = false;
     const cartItem = {
       id: productData.id,
+      slug: productData.slug,
       name: productData.name,
       price: optionPrice || originalPrice || "",
       discountPrice: optiondiscountPrice || discountPrice || "",

@@ -70,7 +70,7 @@ export default function Cart() {
                           <div className="pr-6">
                             <h3 className="text-sm">
                               <Link
-                                href={`product/${product.id}`}
+                                href={`product/${product.slug}`}
                                 className="font-medium text-gray-700 hover:text-gray-800"
                               >
                                 {product.name}

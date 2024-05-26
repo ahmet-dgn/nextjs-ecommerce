@@ -22,7 +22,7 @@ export default function ProductCard({ productData }) {
         </div>
       </div>
       <h3 className="mt-4 text-sm sm:text-base font-semibold text-gray-900">
-        <Link href={`product/${productData.id}`}>
+        <Link href={`product/${productData.slug}`}>
           <span className="absolute inset-0" />
           {productData.name}
         </Link>
