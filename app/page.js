@@ -4,6 +4,7 @@ import FeaturedProducts from "@/components/featuredProducts";
 import BrandLogos from "@/components/brandLogos";
 import MixProducts from "@/components/mixProducts";
 import WhyUs from "@/components/whyUs";
+
 export default function Home() {
   const sliders = [
     {
