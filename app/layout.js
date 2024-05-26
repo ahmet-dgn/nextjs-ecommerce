@@ -36,6 +36,13 @@ export default async function RootLayout({ children }) {
   const navbarData = navbarQuery.props.data;
   return (
     <html lang="tr">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="google-site-verification"
+          content="iKDEfqKb4-4uqJmhytmD12cSlupk3-Ree3BuhEdE2nc"
+        />
+      </head>
       <body className={`${inter.className} `}>
         <CartProvider>
           <Navbar navigation={navbarData} />
