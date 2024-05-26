@@ -26,6 +26,19 @@ const filters = [
     ],
   },
   {
+    id: "brand",
+    name: "Markalar",
+    options: [
+      { value: "100", label: "Calvin Klein", query: "brandID" },
+      { value: "200", label: "Pierre Cardin", query: "brandID" },
+      { value: "300", label: "Gap", query: "brandID" },
+      { value: "400", label: "Levis", query: "brandID" },
+      { value: "500", label: "Diesel", query: "brandID" },
+      { value: "600", label: "Adidas", query: "brandID" },
+      { value: "700", label: "New Balance", query: "brandID" },
+    ],
+  },
+  {
     id: "material",
     name: "Materyal",
     options: [

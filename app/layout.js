@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import getData from "@/lib/query";
 import { CartProvider } from "@/context/CartContext";
+import Footer from "@/components/footer";
+import NewsLetter from "@/components/newsLetter";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -15,11 +17,13 @@ export default async function RootLayout({ children }) {
   const navbarQuery = await getData("navigation");
   const navbarData = navbarQuery.props.data;
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="tr">
+      <body className={`${inter.className} `}>
         <CartProvider>
           <Navbar navigation={navbarData} />
           {children}
+          <NewsLetter />
+          <Footer />
         </CartProvider>
       </body>
     </html>

@@ -22,7 +22,7 @@ export default function MainSlider({ sliders }) {
         {sliders.map((slider, index) => (
           <SwiperSlide key={index}>
             <div className={`w-full ${slider.bgColor} relative isolate`}>
-              <div className="mx-auto max-w-2xl lg:max-w-7xl px-4 sm:px-6 lg:px-8 py-8  ">
+              <div className="mx-auto max-w-2xl lg:max-w-7xl px-4 sm:px-6 lg:px-8 py-8  relative">
                 <Image
                   width={1280}
                   height={750}

@@ -4,8 +4,6 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 export default function ProductCard({ productData }) {
-  const [isLoading, setIsLoading] = useState(true);
-
   return (
     <div className="group relative z-0">
       <div className=" w-full overflow-hidden rounded-lg aspect-h-3 aspect-w-2 group-hover:opacity-75 sm:h-auto">

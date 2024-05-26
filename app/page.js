@@ -1,13 +1,16 @@
-import Image from "next/image";
 import MainSlider from "@/components/mainSlider";
-
+import FeaturedCategories from "@/components/ featuredCategories";
+import FeaturedProducts from "@/components/featuredProducts";
+import BrandLogos from "@/components/brandLogos";
+import MixProducts from "@/components/mixProducts";
+import WhyUs from "@/components/whyUs";
 export default function Home() {
   const sliders = [
     {
-      image: "/Untitled-2a.jpg",
+      image: "/slider-1.jpg",
       url: "/product/8",
-      alt: "Magnhild Organik Pamuk Tshirt",
-      bgColor: "bg-orange-300",
+      alt: "Şapka",
+      bgColor: "bg-red-200",
     },
     {
       image: "/Untitled-2.jpg",
@@ -25,6 +28,11 @@ export default function Home() {
   return (
     <>
       <MainSlider sliders={sliders} />
+      <FeaturedCategories />
+      <FeaturedProducts />
+      <BrandLogos />
+      <MixProducts />
+      <WhyUs />
     </>
   );
 }
