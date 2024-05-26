@@ -12,5 +12,6 @@ export default function robots() {
         "/signup/",
       ],
     },
+    sitemap: `${process.env.WEB_SITE_URL}/sitemap.xml`,
   };
 }

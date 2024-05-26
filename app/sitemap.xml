@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?categoryIDs=500</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?categoryIDs=400</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?categoryIDs=200</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?categoryIDs=100</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/jersey-puf-kollu-tshirt</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/toz-pembe-esofman</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/kece-kovboy-sapkasi</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?brandID=500</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?brandID=200</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?brandID=600</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?brandID=700</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?brandID=400</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?brandID=100</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/mavi-retro-esofman</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/nb-antrenor-sapkasi</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/kadin-siyah-pantolon</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/rose-gold-saat</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/snapback-daire-sapka</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/metalik-mavi-kadin-esofman</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/magnhild-organik-pamuk-tshirt</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?categoryIDs=300</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/orginal-kadife-sapka</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/erkek-keten-pantolon-metalik-mavi</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/mavi-kot-pantolon</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?_page=1</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/search?_page=2</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/minimal-siyah-kol-saati</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://nextjs-ecommerce-neon-nine.vercel.app/product/chrono-gunmetal-kumtasi-kol-saati</loc>
+  <lastmod>2024-05-26T15:26:24+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
