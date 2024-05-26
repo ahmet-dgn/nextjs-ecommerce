@@ -7,22 +7,22 @@ import WhyUs from "@/components/whyUs";
 export default function Home() {
   const sliders = [
     {
-      image: "/slider-1.jpg",
-      url: "/product/8",
+      image: "/slider-1.webp",
+      url: "/search?categoryIDs=500",
       alt: "Şapka",
-      bgColor: "bg-red-200",
+      bgColor: "bg-red-100",
     },
     {
-      image: "/Untitled-2.jpg",
-      url: "/product/8",
-      alt: "Slider-2",
-      bgColor: "bg-purple-300",
+      image: "/slider-2.webp",
+      url: "/search?categoryIDs=400",
+      alt: "Tshirt",
+      bgColor: "bg-amber-100",
     },
     {
-      image: "/Untitled-2w.jpg",
-      url: "/product/8",
-      alt: "Magnhild Organik Pamuk Tshirt",
-      bgColor: "bg-yellow-300",
+      image: "/slider-3.webp",
+      url: "/search?categoryIDs=200",
+      alt: "Pantolon",
+      bgColor: "bg-cyan-100",
     },
   ];
   return (
