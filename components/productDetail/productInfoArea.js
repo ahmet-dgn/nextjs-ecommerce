@@ -83,6 +83,7 @@ export default function ProductInfoArea({ productData }) {
         productAddToCartHandler={productAddToCartHandler}
         selectedSize={selectedSize}
         sizes={productData.sizes}
+        availability={productData.availability}
       />
       <ProductFeatures features={productData.features} />
     </>
