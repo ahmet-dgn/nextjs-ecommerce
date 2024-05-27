@@ -1,10 +1,10 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/primitives/navbar";
 import getData from "@/lib/query";
 import { CartProvider } from "@/context/CartContext";
-import Footer from "@/components/footer";
-import NewsLetter from "@/components/newsLetter";
+import Footer from "@/components/primitives/footer";
+import NewsLetter from "@/components/primitives/newsLetter";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {

@@ -1,6 +1,6 @@
-import ProductInfoArea from "@/components/productInfoArea";
+import ProductInfoArea from "@/components/productDetail/productInfoArea";
 import Image from "next/image";
-import Slider from "@/components/slider";
+import Slider from "@/components/productDetail/slider";
 import getData from "@/lib/query";
 export const dynamicParams = true;
 

@@ -1,9 +1,9 @@
-import MainSlider from "@/components/mainSlider";
-import FeaturedCategories from "@/components/ featuredCategories";
-import FeaturedProducts from "@/components/featuredProducts";
-import BrandLogos from "@/components/brandLogos";
-import MixProducts from "@/components/mixProducts";
-import WhyUs from "@/components/whyUs";
+import MainSlider from "@/components/mainPage/mainSlider";
+import FeaturedCategories from "@/components/mainPage/ featuredCategories";
+import FeaturedProducts from "@/components/mainPage/featuredProducts";
+import BrandLogos from "@/components/mainPage/brandLogos";
+import MixProducts from "@/components/mainPage/mixProducts";
+import WhyUs from "@/components/mainPage/whyUs";
 import getData from "@/lib/query";
 export const metadata = {
   title: "Smile İle Tarzını Keşfet! | Trend ve Enerjik Moda ",

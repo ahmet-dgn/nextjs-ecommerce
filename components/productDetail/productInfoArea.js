@@ -2,12 +2,13 @@
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { Toaster, toast } from "sonner";
-import ProductTitle from "./productDetailComponenets/productTitle";
-import ProductPrice from "./productDetailComponenets/productPrice";
-import ProductShortDescription from "./productDetailComponenets/productShortDescription";
-import ProductCargoInfo from "./productDetailComponenets/productCargoInfo";
-import ProductOption from "./productDetailComponenets/productOption";
-import ProductFeatures from "./productDetailComponenets/productFeatures";
+import ProductTitle from "./productTitle";
+import ProductPrice from "./productPrice";
+import ProductShortDescription from "./productShortDescription";
+import ProductCargoInfo from "./productCargoInfo";
+import ProductOption from "./productOption";
+import ProductFeatures from "./productFeatures";
+import AddToCartButton from "./productButton";
 
 export default function ProductInfoArea({ productData }) {
   const [selectedSize, setSelectedSize] = useState();
@@ -78,13 +79,11 @@ export default function ProductInfoArea({ productData }) {
         productId={productData.id}
       />
       <Toaster position="top-center" richColors />
-      <button
-        className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-emerald-600 px-8 py-3 text-base font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-25"
-        onClick={() => productAddToCartHandler()}
-        disabled={!selectedSize && productData.sizes}
-      >
-        Sepete Ekle
-      </button>
+      <AddToCartButton
+        productAddToCartHandler={productAddToCartHandler}
+        selectedSize={selectedSize}
+        sizes={productData.sizes}
+      />
       <ProductFeatures features={productData.features} />
     </>
   );

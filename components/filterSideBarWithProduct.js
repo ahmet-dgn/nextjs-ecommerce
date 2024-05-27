@@ -2,8 +2,8 @@
 import { Fragment, useState, useCallback } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import ProductCard from "./productCard";
-import Pagination from "./pagination";
+import ProductCard from "./primitives/productCard";
+import Pagination from "./primitives/pagination";
 import Link from "next/link";
 import {
   ChevronDownIcon,
