@@ -43,7 +43,7 @@ export default function SearchCommandPalette({
       params.delete("q");
     }
 
-    router.replace(`search?${params.toString()}`);
+    router.replace(`/search?${params.toString()}`);
   }, 300);
 
   return (
