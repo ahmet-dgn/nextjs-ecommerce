@@ -23,6 +23,7 @@ export default function ProductInfoArea({ productData }) {
 
   const productAddToCartHandler = () => {
     toast.success("Ürün sepete eklendi.");
+
     let foundDuplicate = false;
     const cartItem = {
       id: productData.id,
@@ -84,6 +85,8 @@ export default function ProductInfoArea({ productData }) {
         selectedSize={selectedSize}
         sizes={productData.sizes}
         availability={productData.availability}
+        cart={cart}
+        productId={productData.id}
       />
       <ProductFeatures features={productData.features} />
     </>
