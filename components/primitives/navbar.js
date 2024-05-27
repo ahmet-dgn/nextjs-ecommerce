@@ -238,7 +238,7 @@ export default function Navbar({ navigation }) {
                                   leaveFrom="opacity-100"
                                   leaveTo="opacity-0"
                                 >
-                                  <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
+                                  <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500 z-50">
                                     <div
                                       className="absolute inset-0 top-1/2 bg-white shadow "
                                       aria-hidden="true"
