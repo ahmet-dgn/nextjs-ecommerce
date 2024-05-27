@@ -82,7 +82,7 @@ export default async function Product({ params }) {
           <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
             {/* Image gallery */}
             <div className="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0">
-              <h2 className="sr-only">Images</h2>
+              <h2 className="sr-only">Resimler</h2>
               <div className="lg:hidden ">
                 <Slider sliders={product.images} />
               </div>
