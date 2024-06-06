@@ -18,7 +18,6 @@ export default function MainSlider({ sliders }) {
         pagination={{
           dynamicBullets: true,
         }}
-        autoplay={true}
         modules={[Pagination, Autoplay]}
       >
         {sliders.map((slider, index) => (
