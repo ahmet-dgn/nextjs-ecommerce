@@ -176,13 +176,13 @@ export default function Navbar({ navigation }) {
               <div className="flex items-center space-x-6">
                 <Link
                   href="#"
-                  className="text-sm font-medium text-gray-900 hover:text-gray-100"
+                  className="text-sm font-medium text-gray-900 hover:text-gray-700"
                 >
                   Giriş yap
                 </Link>
                 <Link
                   href="#"
-                  className="text-sm font-medium text-gray-900 hover:text-gray-100"
+                  className="text-sm font-medium text-gray-900 hover:text-gray-700"
                 >
                   Kayıt ol
                 </Link>
